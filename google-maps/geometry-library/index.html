@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Geometry Libbrary</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .main {
+            padding: 10px; display: flex; justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            z-index: 9999;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0px 4px 18px 0px #333;
+            height: 300px;
+        }
+
+        .main article {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .main article div {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+        }
+
+        button {
+            margin: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="main">
+
+
+        <article style="flex: 1;">
+            <h1>Encoding</h1>
+            <div>
+                <button id="encode">Encode Polyline path</button>
+                <button id="decode">Decode polyline path</button>
+            </div>
+        </article>
+
+        <article style="flex: 1;">
+            <h1>Spherical</h1>
+            <div>
+                <button id="area">Compute Area (Polygon)</button>
+                <button id="distance">Distance between (marker and circle center)</button>
+                <button id="heading">Compute heading (marker and circle center)</button>
+                <button id="length">Compute Polyline length</button>
+                <button id="offset">Compute Offset</button>
+                <button id="offset-origin">Compute Offset (origin)</button>
+                <button id="signed-area">Compute Signed Area</button>
+                <button id="interpolate">Interpolate</button>
+            </div>
+        </article>
+
+        <article>
+            <h1>Poly</h1>
+            <div>
+                <button id="contains-location">Contains Location</button>
+                <button id="on-edge">Is Location on Edge</button>
+            </div>
+        </article>
+
+        <article style="border-left: 3px solid red;">
+            <h1>Result</h1>
+            <button id="clear">clear</button>
+
+            <section id="content-result" style="max-height: 100%; overflow-y: auto;">
+                
+            </section>
+        </article>
+    </section>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <script src="map.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCFC0seYi4lgWtbywJTd8n2GNRXIC2h74&callback=initMap&libraries=geometry"
+        async defer></script>
+    <script>
+        const contentResult = document.querySelector('#content-result');
+        document.querySelector('#clear').addEventListener('click', function() {
+            contentResult.innerHTML = '';
+        });
+    </script>
+</body>
+
+</html>

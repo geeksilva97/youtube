@@ -1,0 +1,90 @@
+#map {
+    height: 100%;
+    background-color: #ccc;
+  }
+  input.search-place::placeholder {
+      color: #333;
+  }
+  input.search-place {
+      width: 60%;
+      box-shadow: 0px 3px 5px #333;
+      height: 40px;
+      border: none;
+      background-color: #fff;
+      outline: none;
+      padding: 10px;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* .title-ul {
+    text-align: left;
+  } */
+  
+  .routes-list {
+      list-style: none;
+  }
+  
+  .circle {
+    height: 21px; width: 20px; background-color: red; display: inline-block; border-radius: 20px; margin-right: 10px; 
+    border: 1px solid #333;
+  }
+  
+  .routes-list li.route {
+      user-select: none;
+      padding: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-content: center; justify-content: center; align-items: center;
+  }
+  
+  li.route.disabled {
+    background-color: rgba(0, 0, 0, .4);
+    border-radius: 5px;
+    color: rgba(0, 0, 0, .4);
+  }
+  
+  li.route.disabled span.circle {
+      color: #333 !important;
+  }
+  
+  .routes-list li:hover {
+      background-color: rgba(244, 244, 244, .6);
+  }
+  
+  li.route.disabled:hover {
+    background-color: rgba(0, 0, 0, .5);
+  }
+  
+  .controls {
+    /* background-color: red; */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+    .controls button {
+        background-color: #fff;
+        
+        padding: 8px;
+        color: teal;
+        font-weight: bold;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        outline: none;
+    }
+  
+    .controls button:hover {
+        background-color: #ebebeb;
+    }
+  
+    .controls button.selected {
+        background-color: teal;
+        color: #fff;
+        border: 1px solid teal;
+    }
