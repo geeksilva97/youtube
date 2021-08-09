@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Auth</title>
+</head>
+
+<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+
+        firebase.initializeApp(firebaseConfig);
+        console.log('app is ready', firebase);
+
+        document.querySelector('#google-login').addEventListener('click', () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+            provider.addScope('https://www.googleapis.com/auth/user.gender.read');
+            provider.addScope('https://www.googleapis.com/auth/user.birthday.read');
+            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+            firebase.auth().signInWithPopup(provider)
+                .then(data => {
+                    console.log(data);
+                    console.log(data.credential.accessToken)
+                    document.querySelector('span').innerText = data.credential.accessToken;
+                })
+                .catch(err => console.error(err));
+        }, false);
+
+    </script>
+</body>
+
+</html>
