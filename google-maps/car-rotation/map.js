@@ -42,7 +42,7 @@ function initMap() {
       me.setPosition(nextCoord);
 
       currentStepIndex++;
-    }, 100);
+    }, 400);
   }
 
   const directionsService = new google.maps.DirectionsService();
@@ -101,7 +101,7 @@ function initMap() {
 
         setTimeout(() => {
           simulateDriving({ me, microStepCoords });
-        }, 2000);
+        }, 1000);
       }, 100);
     }
   });
