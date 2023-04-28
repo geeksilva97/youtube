@@ -42,7 +42,7 @@ function initMap() {
       me.setPosition(nextCoord);
 
       currentStepIndex++;
-    }, 500);
+    }, 100);
   }
 
   const directionsService = new google.maps.DirectionsService();
@@ -55,6 +55,10 @@ function initMap() {
   directionsRenderer.setMap(map);
 
   const santaFe = { lat: 35.68696918574762, lng: -105.93781702652073 };
+  const rioRancho ={
+    lat:  35.23291199672124,
+    lng: -106.66566167299302
+  };
   const albuquerque = { lat: 35.08443576955484, lng: -106.65043410215983 };
 
   const icon = {
@@ -72,7 +76,7 @@ function initMap() {
 
   directionsService.route({
     origin: albuquerque,
-    destination: santaFe,
+    destination: rioRancho,
     travelMode: 'DRIVING'
   }, function(result, status) {
     if (status === 'OK') {
