@@ -81,6 +81,16 @@ function initMap() {
 
       directionsRenderer.setDirections(result);
 
+      // A quick refactor is needed here - but I'm too lazy to do it. We can promisify and have a sleep function. We'd have something like:
+      //
+      // await sleep(100);
+      //
+      // map.setZoom(17);
+      // map.panTo(me.getPosition())
+      //
+      // await sleep(2000);
+      //
+      // simulateDriving({ ... })
       setTimeout(() => {
         map.setZoom(17);
         map.panTo(me.getPosition());
