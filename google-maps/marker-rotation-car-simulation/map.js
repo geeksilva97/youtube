@@ -6,23 +6,23 @@ function initMap() {
     scale: 5,
   };
 
-  function simulateDriving({ microStepCoords, me }) {
+  const icon = {
+    url: 'http://localhost:3000/car-icon?degree=0',
+    anchor: new google.maps.Point(16, 16), // center of the icon
+    size: new google.maps.Size(41, 41), // size of the icon
+  };
+
+  function simulateDriving({ steps, me, speed, map }) {
+    const animationSpeed = speed || 1000;
     let currentStepIndex = 0;
 
     const intervalID = setInterval(() => {
-      if (currentStepIndex >= microStepCoords.length) {
+      if (currentStepIndex >= steps.length) {
         clearInterval(intervalID);
         return;
       }
 
-      // old implementation kept for youtube video purposes
-      // when I started I was using the Directions steps as the reference but they aren't that granular and didn't fit
-      // the simulation purposes
-      //
-      // const currentStep = steps[currentStepIndex];
-      // const stepStartLocation = currentStep.start_location;
-
-      const nextCoord = microStepCoords[currentStepIndex];
+      const nextCoord = steps[currentStepIndex];
       const heading = google.maps
         .geometry
         .spherical
@@ -31,22 +31,24 @@ function initMap() {
 
       // Also kept for YouTube video purposes - that's the demo for icon being generated on a backend application
       //
-      // me.setIcon({
-      //   ...icon,
-      //   url: `http://localhost:3000/car-icon?degree=${heading}`
-      // });
       me.setIcon({
-        ...symbolIcon,
-        rotation: parseFloat(heading)
+        ...icon,
+        url: `http://localhost:3000/car-icon?degree=${heading}`
       });
+      // me.setIcon({
+      //   ...symbolIcon,
+      //   rotation: parseFloat(heading)
+      // });
+
       me.setPosition(nextCoord);
+      map.panTo(me.getPosition());
 
       currentStepIndex++;
-    }, 400);
+    }, animationSpeed);
   }
 
   const directionsService = new google.maps.DirectionsService();
-  const directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true })
+  const directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true });
   const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 34.47254534601006, lng: -106.28142209266413 },
     zoom: 7,
@@ -61,17 +63,11 @@ function initMap() {
   };
   const albuquerque = { lat: 35.08443576955484, lng: -106.65043410215983 };
 
-  const icon = {
-    url: 'http://localhost:3000/car-icon?degree=0',
-    anchor: new google.maps.Point(16, 16), // center of the icon
-    size: new google.maps.Size(32, 32), // size of the icon
-  }
-
   const me = new google.maps.Marker({
     position: albuquerque,
     map: map,
     draggable: true,
-    icon: symbolIcon
+    icon
   });
 
   directionsService.route({
@@ -80,8 +76,7 @@ function initMap() {
     travelMode: 'DRIVING'
   }, function(result, status) {
     if (status === 'OK') {
-      const steps = result.routes[0].legs[0].steps;
-      const microStepCoords = steps.flatMap(step => step.path);
+      const steps = result.routes[0].legs[0].steps.flatMap(step => step.path);
 
       directionsRenderer.setDirections(result);
 
@@ -100,7 +95,7 @@ function initMap() {
         map.panTo(me.getPosition());
 
         setTimeout(() => {
-          simulateDriving({ me, microStepCoords });
+          simulateDriving({ map, me, steps, speed: 400 });
         }, 1000);
       }, 100);
     }

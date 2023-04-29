@@ -10,7 +10,9 @@ app.get('/car-icon', (req, res) => {
     }
 
     sharp(buffer)
-      .rotate(parseFloat(degree))
+      .rotate(parseFloat(degree), {
+        background: { r: 255, g: 0, b: 0, alpha: 0 }
+      })
       .toBuffer(function(err, buff) {
 
         if (err) {
