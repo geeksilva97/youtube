@@ -1,3 +1,9 @@
+const sleep = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), timeout);
+  });
+};
+
 function initMap() {
   const symbolIcon = {
     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -12,41 +18,6 @@ function initMap() {
     size: new google.maps.Size(41, 41), // size of the icon
   };
 
-  function simulateDriving({ steps, me, speed, map }) {
-    const animationSpeed = speed || 1000;
-    let currentStepIndex = 0;
-
-    const intervalID = setInterval(() => {
-      if (currentStepIndex >= steps.length) {
-        clearInterval(intervalID);
-        return;
-      }
-
-      const nextCoord = steps[currentStepIndex];
-      const heading = google.maps
-        .geometry
-        .spherical
-        .computeHeading(me.getPosition(), nextCoord)
-        .toFixed(2);
-
-      // Also kept for YouTube video purposes - that's the demo for icon being generated on a backend application
-      //
-      me.setIcon({
-        ...icon,
-        url: `http://localhost:3000/car-icon?degree=${heading}`
-      });
-      // me.setIcon({
-      //   ...symbolIcon,
-      //   rotation: parseFloat(heading)
-      // });
-
-      me.setPosition(nextCoord);
-      map.panTo(me.getPosition());
-
-      currentStepIndex++;
-    }, animationSpeed);
-  }
-
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true });
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -56,7 +27,6 @@ function initMap() {
 
   directionsRenderer.setMap(map);
 
-  const santaFe = { lat: 35.68696918574762, lng: -105.93781702652073 };
   const rioRancho ={
     lat:  35.23291199672124,
     lng: -106.66566167299302
@@ -66,7 +36,6 @@ function initMap() {
   const me = new google.maps.Marker({
     position: albuquerque,
     map: map,
-    draggable: true,
     icon
   });
 
@@ -74,30 +43,40 @@ function initMap() {
     origin: albuquerque,
     destination: rioRancho,
     travelMode: 'DRIVING'
-  }, function(result, status) {
+  }, async function(result, status) {
     if (status === 'OK') {
       const steps = result.routes[0].legs[0].steps.flatMap(step => step.path);
+      console.log(steps);
 
       directionsRenderer.setDirections(result);
 
-      // A quick refactor is needed here - but I'm too lazy to do it. We can promisify and have a sleep function. We'd have something like:
-      //
-      // await sleep(100);
-      //
-      // map.setZoom(17);
-      // map.panTo(me.getPosition())
-      //
-      // await sleep(2000);
-      //
-      // simulateDriving({ ... })
-      setTimeout(() => {
-        map.setZoom(17);
-        map.panTo(me.getPosition());
+      await sleep(100);
 
-        setTimeout(() => {
-          simulateDriving({ map, me, steps, speed: 400 });
-        }, 1000);
-      }, 100);
+      map.setZoom(17);
+      map.panTo(me.getPosition());
+
+      await sleep(1000);
+
+      simulateWatchPosition({ steps, speed: 300 }, (coord) => {
+        const heading = google.maps
+          .geometry
+          .spherical
+          .computeHeading(me.getPosition(), coord)
+          .toFixed(2);
+
+        // me.setIcon({
+        //   ...symbolIcon,
+        //   rotation: parseFloat(heading)
+        // });
+
+        me.setIcon({
+          ...icon,
+          url: `http://localhost:3000/car-icon?degree=${heading}`,
+        });
+
+        me.setPosition(coord);
+        map.panTo(me.getPosition());
+      });
     }
   });
 }

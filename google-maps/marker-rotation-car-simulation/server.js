@@ -4,6 +4,7 @@ const sharp = require('sharp');
 
 app.get('/car-icon', (req, res) => {
   const degree = req.query.degree || 0;
+
   fs.readFile('./car-top-view.png', (err, buffer) => {
     if (err) {
       return res.send('Error while reading the car icon');
@@ -11,7 +12,7 @@ app.get('/car-icon', (req, res) => {
 
     sharp(buffer)
       .rotate(parseFloat(degree), {
-        background: { r: 255, g: 0, b: 0, alpha: 0 }
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
       })
       .toBuffer(function(err, buff) {
 
