@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# youtube.com/edigleyssonsilva
-
-A bunch of YouTube samples
-=======
 # Dev journal
 dang github
 
@@ -35,23 +30,5 @@ describe('math operation parser', () => {
   it.todo('raises an exception when it cannot parse')
 });
 
-<<<<<<< HEAD
-Comecei com uma regex complexa, mas deu trabalho demais
-
-const REGEX = /(?<operation>add|subtract|divide|multiply)\((?<first_operand>[a_zA_Z0-9])\s*,\s*(?<second_operand>.*)\)/gm;
-
-Estava tentanto ja extrair cada pedado, tipo
-
-operando, operador 1 e operador 2.
-
-os operadores poderiam ser tanto um numero - literal - quando uma outra chamada de funcao, como uma recursao
-
-
-Foi complicado fazer isso, resolvi entao só pegar o que fica entre os parenteses e fazer split
-
-/^(?<operation>add|subtract|divide|multiply)\((?<params>.*)\)/gm
->>>>>>> fc878d0 (update regex)
-=======
 De fato usar regex é acumular problemas. mas deu certo, consegui usar uma regex -- ainda nao tentei melhorar - que
 extrai a operacao, os parametros e recursivamente vai reaplicado se necessario.
->>>>>>> 1c221b9 (add test for float/double numbers)
