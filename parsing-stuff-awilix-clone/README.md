@@ -35,3 +35,7 @@ extrai a operacao, os parametros e recursivamente vai reaplicado se necessario.
 
 In order to get only these changes in a existing repository wihout prevous cloning i neede to perform a rebase
 git rebase --onto remotes/origin/master 
+
+# links uteis
+
+- https://stackoverflow.com/questions/1007981/how-to-get-function-parameter-names-values-dynamically
