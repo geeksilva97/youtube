@@ -32,3 +32,6 @@ describe('math operation parser', () => {
 
 De fato usar regex é acumular problemas. mas deu certo, consegui usar uma regex -- ainda nao tentei melhorar - que
 extrai a operacao, os parametros e recursivamente vai reaplicado se necessario.
+
+In order to get only these changes in a existing repository wihout prevous cloning i neede to perform a rebase
+git rebase --onto remotes/origin/master 
