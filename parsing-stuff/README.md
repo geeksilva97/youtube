@@ -4,6 +4,7 @@
 A bunch of YouTube samples
 =======
 # Dev journal
+dang github
 
 Esses dias conversanod com um amigo meu sobre uma oportunidade ele mencinou a entrevista técnica. Ele falou que fez uma
 implementação de um parser que reoslve operações matematicas.
