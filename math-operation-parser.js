@@ -27,7 +27,11 @@ const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*
  * @returns {number}
  */
 const parseOperation = (operationString) => {
-  const { groups } = Array.from(operationString.trim().matchAll(REGEX))[0];
+  const match = Array.from(operationString.trim().matchAll(REGEX))[0];
+
+  if (!match) throw 'Could not parse the operation the string could not be matcher in the pattern: operation(arg1, arg2)'
+
+  const { groups } = match;
   const { operation, param1, param2 } = groups;
 
   const parsedFirstOperand = parseOperand(param1.trim());
