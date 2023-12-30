@@ -1,12 +1,24 @@
+
+/**
+ * @function
+ * @param {Function} fn
+ * @returns {Function}
+ */
+const numberify = (fn) => {
+  return (...args) => {
+    return fn.apply(null, args.map(c => Number(c)))
+  };
+};
+
 const OPERATIONS_MAP = {
-  add: (a, b) => Number(a) + Number(b),
-  subtract: (a, b) => Number(a) - Number(b),
-  divide: (a, b) => Number(a) / Number(b),
-  multiply: (a, b) => Number(a) * Number(b),
+  add: numberify((a, b) => a + b),
+  subtract: numberify((a, b) => a - b),
+  divide: numberify((a,b) => a / b),
+  multiply: numberify((a, b) => a * b)
 };
 
 // const REGEX = /(?<operation>add|subtract|divide|multiply)\((?<first_operand>[a_zA_Z0-9])\s*,\s*(?<second_operand>.*)\)/gm;
-const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*\)|\d{0,}\s{0,})),(?<param2>(.*))\)$/gm
+const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*\)\s{0,}}|\d{0,}\s{0,})),(?<param2>(.*))\)$/gm
 
 /**
  * @function
