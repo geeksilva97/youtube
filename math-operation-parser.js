@@ -18,7 +18,8 @@ const OPERATIONS_MAP = {
 };
 
 // const REGEX = /(?<operation>add|subtract|divide|multiply)\((?<first_operand>[a_zA_Z0-9])\s*,\s*(?<second_operand>.*)\)/gm;
-const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*\)\s{0,}}|\d{0,}\s{0,})),(?<param2>(.*))\)$/gm
+// const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*\)\s{0,}}|\d{0,}\s{0,})),(?<param2>(.*))\)$/gm
+const REGEX = /^(?<operation>add|subtract|divide|multiply)\((?<param1>(?:\w+\(.*\)\s{0,}|\d{0,}(?:\.\d{1,})?\s{0,})\s{0,}),(?<param2>(.*))\)$/gm;
 
 /**
  * @function

@@ -22,8 +22,6 @@ isso... vamos ver no que vai dar. O que for rolado vou docmentando aqui.
 meu plano é ver em quanto tempo sai e depois ir um passo a lém criando uma copia smples do awilix, usando um parser
 também.
 
-começando agora 21:02 do dia 29/12/2023
-
 - instalei o jest
 - é bom ter um TDD em casos assim de input e output
 - Escrevi alguns casos de teste
@@ -36,6 +34,7 @@ describe('math operation parser', () => {
   it.todo('raises an exception when it cannot parse')
 });
 
+<<<<<<< HEAD
 Comecei com uma regex complexa, mas deu trabalho demais
 
 const REGEX = /(?<operation>add|subtract|divide|multiply)\((?<first_operand>[a_zA_Z0-9])\s*,\s*(?<second_operand>.*)\)/gm;
@@ -51,3 +50,7 @@ Foi complicado fazer isso, resolvi entao só pegar o que fica entre os parentese
 
 /^(?<operation>add|subtract|divide|multiply)\((?<params>.*)\)/gm
 >>>>>>> fc878d0 (update regex)
+=======
+De fato usar regex é acumular problemas. mas deu certo, consegui usar uma regex -- ainda nao tentei melhorar - que
+extrai a operacao, os parametros e recursivamente vai reaplicado se necessario.
+>>>>>>> 1c221b9 (add test for float/double numbers)
