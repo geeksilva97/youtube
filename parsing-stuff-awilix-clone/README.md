@@ -36,6 +36,13 @@ extrai a operacao, os parametros e recursivamente vai reaplicado se necessario.
 In order to get only these changes in a existing repository wihout prevous cloning i neede to perform a rebase
 git rebase --onto remotes/origin/master 
 
+# Awilix clone implementation
+
+Nossa interface vai ser um pouco diferente para simplificr as coisas. Ao invés de register teremos um método add
+
+containder.add(key, value);
+
 # links uteis
 
 - https://stackoverflow.com/questions/1007981/how-to-get-function-parameter-names-values-dynamically
+
