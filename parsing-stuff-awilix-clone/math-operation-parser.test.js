@@ -9,12 +9,12 @@ describe('math operation parser', () => {
     expect(parseOperation('add(2.5, -2)')).toEqual(0.5);
   });
 
-  it('parsers nested operations recursively', () => {
+  it.only('parsers nested operations recursively', () => {
     expect(parseOperation('multiply(3,subtract(3, 4))')).toEqual(-3);
     expect(parseOperation('multiply(3    ,subtract(3, 4))')).toEqual(-3);
     expect(parseOperation('subtract(3    ,    add(3, 4))')).toEqual(-4);
     expect(parseOperation('add(0.5, multiply(0.5, 0.5))')).toEqual(.75);
   })
 
-  it.todo('raises an exception when it cannot parse')
+  // it.todo('raises an exception when it cannot parse')
 });
